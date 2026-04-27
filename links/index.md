@@ -6,7 +6,7 @@
 ## Social Media
 [GitHub](https://github.com/CachyToki)
 
-[Twitter](https://twitter.com/CachyToki3655)
+[Twitter](https://x.com/CachyToki3655)
 
 [Instagram](https://instagram.com/cachytoki)
 
@@ -16,4 +16,4 @@
 
 [Pixiv](https://www.pixiv.net/users/87913371)
 
-[]
+<!-- [placeholder-txt](placeholder-link) -->

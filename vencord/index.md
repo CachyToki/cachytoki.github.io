@@ -1,6 +1,6 @@
-# Vencord | BetterDiscord
+# My personal Equicord | Vencord Themes
 
-## Themes  (creds in css file)
+## Themes (creds in css file)
 
 [Normal ClearVision(v7)](https://raw.githubusercontent.com/FlatPonch/flatponch.github.io/main/vencord/ClearVision.v6.FlatPonch.css)
 
@@ -16,11 +16,11 @@
 
 ## How to install?
 
-[google it]((https://www.google.com/search?q=vencord+theme+how+to+install))
+[pls search them up and figure it yourself🥀]((https://www.google.com/search?q=how+to+install+theme+to+vencord))
 
-## Download and Install Vencord(if you dont have it)
+## Download and Install Equicord or Vencord(if you dont have it)
 
-### IMPORTANT BEFORE DOWNLOAD AND INSTALL
+### IMPORTANT MESSAGE BEFORE DOWNLOAD AND INSTALL
 Client modifications are against Discord’s Terms of Service.
 
 However, Discord is pretty indifferent about them and there are no known cases of users getting banned for using client mods! So you should generally be fine as long as you don’t use any plugins that implement abusive behaviour. But no worries, all inbuilt plugins are safe to use!
@@ -30,6 +30,8 @@ Regardless, if your account is very important to you and it getting disabled wou
 Additionally, make sure not to post screenshots with Vencord in a server where you might get banned for it
 (from vencord's FAQ)
 
-### Download Vencord(if you read the important)
+### Download Equicord(if you read the important)
 
 [here](https://vencord.dev/download)
+
+If you use a Linux, Vesktop is the best because native Wayland support. (discord client doesn't have that by default)
