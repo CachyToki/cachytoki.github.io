@@ -2,17 +2,17 @@
 
 ## Themes (creds in css file)
 
-[Normal ClearVision(v7)](https://raw.githubusercontent.com/FlatPonch/flatponch.github.io/main/vencord/ClearVision.v6.FlatPonch.css)
+[Normal ClearVision(v7)](./ClearVision_v7.FlatPonch.css)
 
-[Normal ClearVision With Evolve Sans(v7)](https://raw.githubusercontent.com/FlatPonch/flatponch.github.io/main/vencord/ClearVision_v6.FlatPonch.Evolve.css)
+[Normal ClearVision With Evolve Sans(v7)](./ClearVision_v7.FlatPonch.Evolve.css)
 
-[Normal ClearVision With OPPO Sans(v7)](https://raw.githubusercontent.com/FlatPonch/flatponch.github.io/main/vencord/ClearVision.v6.FlatPonch.OPPOSans.css)
+[Normal ClearVision With OPPO Sans(v7)](./ClearVision_v7.FlatPonch.OPPOSans.css)
 
-[Normal ClearVision With MiSans(v7)](https://raw.githubusercontent.com/FlatPonch/flatponch.github.io/main/vencord/ClearVision.v6.FlatPonch.MiSans.css)
+[Normal ClearVision With MiSans(v7)](./ClearVision_v7.FlatPonch.MiSans.css)
 
-[Nothing ClearVision(v7)](https://raw.githubusercontent.com/FlatPonch/flatponch.github.io/main/vencord/ClearVision.v6.FlatPonch.nothing.css)
+[Nothing ClearVision(v7)](./ClearVision_v7.FlatPonch.nothing.css)
 
-[RABBIT Platoon(from Blue Archive) ClearVision(v7)](https://raw.githubusercontent.com/FlatPonch/flatponch.github.io/main/vencord/ClearVision.v6.FlatPonch.RABBITplatoon.css)
+[RABBIT Platoon (from Blue Archive)](./ClearVision_v7.FlatPonch.RABBITplatoon.css)
 
 ## How to install?
 
@@ -32,6 +32,8 @@ Additionally, make sure not to post screenshots with Vencord in a server where y
 
 ### Download Equicord(if you read the important)
 
-[here](https://vencord.dev/download)
+[here](https://equicord.org/)
 
-If you use a Linux, Vesktop is the best because native Wayland support. (discord client doesn't have that by default)
+If you using a Linux, Vesktop | Equibop is the best option. because it has native Wayland support. (official discord client doesn't have that by default)
+
+<!-- im too lazy to edit them🥀 today -->
