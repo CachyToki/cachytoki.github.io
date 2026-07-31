@@ -1,10 +1,10 @@
-<!-- v6(Released in Jan 1, 2026) -->
+<!-- Ver7 (Released in Jul 31, 2026) -->
 <!doctype html>
 <html lang="ja">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="color-scheme" content="dark" />
+        <meta name="color-scheme" content="light dark" />
         <meta property="og:title" content="CachyToki's Website" />
         <meta property="og:image" content="../imgs/mutsuki.webp" />
         <meta property="og:description" content="くふふ♡" />
@@ -20,12 +20,14 @@
         <div class="bg-fixed"></div>
         <div class="container">
             <header>
-                <h1>CachyToki/カチトキ</h1>
-                <p class="bio">
-                    ようこそ (≧◡≦)<br />
-                    Web、モバイル、そしてアニメオタク。<br />
-                    より良い体験のために、Dark Readerをオフにしてね (눈_눈)
-                </p>
+                <img class="avatar" src="../imgs/mutsuki.webp" alt="CachyToki" />
+                <div>
+                    <h1>CachyToki<span class="dot">.</span></h1>
+                    <p class="bio">
+                        ようこそ (≧◡≦)<br />
+                        Web、モバイル、そしてアニメオタク。
+                    </p>
+                </div>
             </header>
             <div class="main-grid">
                 <div class="card">
@@ -34,8 +36,9 @@
                         <a href="https://bluearchive.jp/" class="game-item">
                             <img
                                 src="../imgs/Game/blue_archive.webp"
-                                alt="Blue Archive"
+                                alt="ブルーアーカイブ"
                             />
+                            <span class="label">ブルーアーカイブ</span>
                         </a>
                         <a
                             href="https://endfield.gryphline.com/"
@@ -43,8 +46,9 @@
                         >
                             <img
                                 src="../imgs/Game/Endfield.webp"
-                                alt="Arknights:Endfield"
+                                alt="アークナイツ:エンドフィールド"
                             />
+                            <span class="label">アークナイツ:エンドフィールド</span>
                         </a>
                         <a
                             href="https://zenless.hoyoverse.com"
@@ -52,8 +56,9 @@
                         >
                             <img
                                 src="../imgs/Game/zzz.webp"
-                                alt="Zenless Zone Zero"
+                                alt="ゼンレスゾーンゼロ"
                             />
+                            <span class="label">ゼンレスゾーンゼロ</span>
                         </a>
                         <a
                             href="https://genshin.hoyoverse.com"
@@ -61,8 +66,9 @@
                         >
                             <img
                                 src="../imgs/Game/genshin_impact.webp"
-                                alt="Genshin Impact"
+                                alt="原神"
                             />
+                            <span class="label">原神</span>
                         </a>
                     </div>
                 </div>
@@ -70,81 +76,151 @@
                     <div class="card">
                         <details>
                             <summary>
-                                <h3>愛用デバイス/環境 (クリックして展開)</h3>
+                                <h3>愛用デバイス / 環境</h3>
                             </summary>
-                            <ul>
-                                <li>
-                                    <strong>スマートフォン</strong>
-                                    <br />
-                                    <strong>Samsung Galaxy S25 Ultra</strong>
-                                    <span>メイン端末</span>
-                                    <br />
-                                    <span
-                                        >SoC: Qualcomm Snapdragon 8 Elite</span
-                                    >
-                                    <span>RAM: LPDDR5X 12GB</span>
-                                    <span>Storage: UFS 4.0 512GB</span>
-                                    <span>OS: One UI 8(Android 16)</span>
-                                    <span>IDE: None</span>
-                                    <span>Browser: Firefox</span>
-                                    <!-- なんでFirefoxはクソだと言う人がいるの？どちらもいいブラウザなのに？ -->
-                                    <br />
-                                    <strong>Google Pixel 6a</strong>
-                                    <span>サブ端末</span>
-                                    <br />
-                                    <span>SoC: Google Tensor</span>
-                                    <span>RAM: 6GB LPDDR5</span>
-                                    <span>Storage: UFS 3.1 128GB</span>
-                                    <span>OS: Android 16(GrapheneOS)</span>
-                                    <span>IDE: None</span>
-                                    <span>Browser: Brave/Vanadium</span>
-                                </li>
-                                <li>
-                                    <strong>パソコン</strong>
-                                    <br />
-                                    <strong
-                                        >Lenovo ThinkPad T14 Gen 5 (AMD)</strong
-                                    >
-                                    <span>いつも使うメインパソコン</span>
-                                    <br />
-                                    <span>CPU: AMD Ryzen 7 8840U</span>
-                                    <span>RAM: Kingston DDR5-5600 32GB</span>
-                                    <span
-                                        >GPU: AMD Radeon 780M(Integrated)</span
-                                    >
-                                    <span
-                                        >Storage: Micron PCIe 4.0 NVMe SSD
-                                        512GB</span
-                                    >
-                                    <span>OS: CachyOS Linux(Arch-based)</span>
-                                    <span>IDE: Zed</span>
-                                    <span>Browser: Zen Browser</span>
-                                    <br />
-                                    <strong>ASUS TUF Gaming A15 (FA507)</strong>
-                                    <span>VR、AAAゲーム向けサブパソコン</span>
-                                    <br />
-                                    <span>CPU: AMD Ryzen 7 6800H</span>
-                                    <span>RAM: Samsung DDR5-4800 16GB</span>
-                                    <span
-                                        >GPU: NVIDIA GeForce RTX 3050
-                                        Laptop(Dedicated)</span
-                                    >
-                                    <span
-                                        >Storage: Intel PCIe 3.0 NVMe SSD
-                                        512GB</span
-                                    >
-                                    <span
-                                        >OS: Windows 10 IoT Enterprise LTSC
-                                        2021</span
-                                    >
-                                    <span>IDE: </span>
-                                    <span>Browser: Firefox</span>
-                                </li>
-                            </ul>
+                            <div class="device-group">
+                                <p class="group-title">スマートフォン</p>
+                                <div class="device">
+                                    <div class="device-head">
+                                        <strong>Samsung Galaxy S25 Ultra</strong>
+                                        <span class="tag">メイン</span>
+                                    </div>
+                                    <dl class="specs">
+                                        <div>
+                                            <dt>SoC</dt>
+                                            <dd>Snapdragon 8 Elite</dd>
+                                        </div>
+                                        <div>
+                                            <dt>RAM</dt>
+                                            <dd>LPDDR5X 12GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Storage</dt>
+                                            <dd>UFS 4.0 512GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>OS</dt>
+                                            <dd>One UI 8 (Android 16)</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Browser</dt>
+                                            <dd>Firefox</dd>
+                                        </div>
+                                        <!-- なんでFirefoxはクソだと言う人がいるの？どちらもいいブラウザなのに？ -->
+                                    </dl>
+                                </div>
+                                <div class="device">
+                                    <div class="device-head">
+                                        <strong>Google Pixel 6a</strong>
+                                        <span class="tag">サブ</span>
+                                    </div>
+                                    <dl class="specs">
+                                        <div>
+                                            <dt>SoC</dt>
+                                            <dd>Google Tensor</dd>
+                                        </div>
+                                        <div>
+                                            <dt>RAM</dt>
+                                            <dd>LPDDR5 6GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Storage</dt>
+                                            <dd>UFS 3.1 128GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>OS</dt>
+                                            <dd>Android 16 (GrapheneOS)</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Browser</dt>
+                                            <dd>Brave / Vanadium</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="device-group">
+                                <p class="group-title">パソコン</p>
+                                <div class="device">
+                                    <div class="device-head">
+                                        <strong
+                                            >Lenovo ThinkPad T14 Gen 5
+                                            (AMD)</strong
+                                        >
+                                        <span class="tag">メイン</span>
+                                    </div>
+                                    <dl class="specs">
+                                        <div>
+                                            <dt>CPU</dt>
+                                            <dd>AMD Ryzen 7 8840U</dd>
+                                        </div>
+                                        <div>
+                                            <dt>RAM</dt>
+                                            <dd>Kingston DDR5-5600 32GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>GPU</dt>
+                                            <dd>AMD Radeon 780M (内蔵)</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Storage</dt>
+                                            <dd>Micron PCIe 4.0 NVMe 512GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>OS</dt>
+                                            <dd>CachyOS Linux (Arch系)</dd>
+                                        </div>
+                                        <div>
+                                            <dt>IDE</dt>
+                                            <dd>Zed</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Browser</dt>
+                                            <dd>Zen Browser</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                                <div class="device">
+                                    <div class="device-head">
+                                        <strong
+                                            >ASUS TUF Gaming A15 (FA507)</strong
+                                        >
+                                        <span class="tag">VR / AAA向け</span>
+                                    </div>
+                                    <dl class="specs">
+                                        <div>
+                                            <dt>CPU</dt>
+                                            <dd>AMD Ryzen 7 6800H</dd>
+                                        </div>
+                                        <div>
+                                            <dt>RAM</dt>
+                                            <dd>Samsung DDR5-4800 16GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>GPU</dt>
+                                            <dd>NVIDIA GeForce RTX 3050 Laptop</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Storage</dt>
+                                            <dd>Intel PCIe 3.0 NVMe 512GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>OS</dt>
+                                            <dd>
+                                                Windows 10 IoT Enterprise LTSC
+                                                2021
+                                            </dd>
+                                        </div>
+                                        <div>
+                                            <dt>Browser</dt>
+                                            <dd>Firefox</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
                         </details>
                     </div>
                     <div class="card">
-                        <h3>ギャラリー (クリックして展開)</h3>
+                        <h3>ギャラリー</h3>
                         <div class="gallery-grid">
                             <div class="gallery-item">
                                 <a
@@ -195,8 +271,8 @@
                 </div>
             </div>
             <nav class="nav-links">
+                <a href="../index.html" class="btn btn-primary">🇬🇧 English</a>
                 <a href="./light.html" class="btn">軽量版</a>
-                <a href="../index.html" class="btn">🇬🇧 English</a>
                 <a href="https://cachytoki.github.io/database" class="btn"
                     >Database</a
                 >
@@ -210,22 +286,19 @@
                 <a
                     href="https://disboard.org/server/1382534514861015090"
                     class="btn"
-                    >Discordサーバー(いつもここで会話しています。)</a
+                    >Discordサーバー</a
                 >
             </nav>
             <footer>
                 <p>
                     ©2026 CachyToki. (Formerly known as FlatPonch) All Rights
-                    Reserved.
+                    Reserved.<br />
+                    <a href="../old/index.html">旧デザインに戻る</a>
                 </p>
-                <p><a href="../old/index.html">旧デザインに戻る</a></p>
-                <br />
-                <p>
-                    一部のコードは<a href="https://gemini.google.com"
-                        >Google Gemini</a
-                    >によって生成されました。
-                </p>
-                <p>
+                <p class="credits">
+                    一部のコードは<a href="https://claude.ai"
+                        >Anthropic Claude(Opus 5)</a
+                    >によって生成されました。<br />
                     <a href="https://github.com/CachyToki/cachytoki.github.io"
                         >このサイトのソースコード</a
                     >

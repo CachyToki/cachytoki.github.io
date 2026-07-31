@@ -1,10 +1,10 @@
-<!-- Ver6 (Released in Jan 1, 2026) -->
+<!-- Ver7 (Released in Jul 31, 2026) -->
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="color-scheme" content="dark" />
+        <meta name="color-scheme" content="light dark" />
         <meta property="og:title" content="CachyToki's Website" />
         <meta property="og:image" content="../imgs/mutsuki.webp" />
         <meta property="og:description" content="Kufufu♡" />
@@ -20,11 +20,14 @@
         <div class="bg-fixed"></div>
         <div class="container">
             <header>
-                <h1>CachyToki</h1>
-                <p class="bio">
-                    Welcome to my Website :3<br />
-                    Enthusiast of Web, Mobile, Gamer and Anime.<br />
-                </p>
+                <img class="avatar" src="./imgs/mutsuki.webp" alt="CachyToki" />
+                <div>
+                    <h1>CachyToki<span class="dot">.</span></h1>
+                    <p class="bio">
+                        Welcome to my website :3<br />
+                        Enthusiast of web, mobile, gaming and anime.
+                    </p>
+                </div>
             </header>
             <div class="main-grid">
                 <div class="card">
@@ -38,6 +41,7 @@
                                 src="./imgs/Game/blue_archive.webp"
                                 alt="Blue Archive"
                             />
+                            <span class="label">Blue Archive</span>
                         </a>
                         <a
                             href="https://endfield.gryphline.com/"
@@ -45,8 +49,9 @@
                         >
                             <img
                                 src="./imgs/Game/Endfield.webp"
-                                alt="Arknights:Endfield"
+                                alt="Arknights: Endfield"
                             />
+                            <span class="label">Arknights: Endfield</span>
                         </a>
                         <a
                             href="https://zenless.hoyoverse.com"
@@ -56,6 +61,7 @@
                                 src="./imgs/Game/zzz.webp"
                                 alt="Zenless Zone Zero"
                             />
+                            <span class="label">Zenless Zone Zero</span>
                         </a>
                         <a
                             href="https://genshin.hoyoverse.com"
@@ -65,6 +71,7 @@
                                 src="./imgs/Game/genshin_impact.webp"
                                 alt="Genshin Impact"
                             />
+                            <span class="label">Genshin Impact</span>
                         </a>
                         <!-- Those images are taken from steamgriddb.com and i don't know where is the copyright. so, this might be replaced by my drawn arts instead. -->
                     </div>
@@ -73,74 +80,135 @@
                     <div class="card">
                         <details>
                             <summary>
-                                <h3>Daily Drivers (Click to Expand)</h3>
+                                <h3>Daily Drivers</h3>
                             </summary>
-                            <ul>
-                                <li>
-                                    <strong>My Phones</strong>
-                                    <br />
-                                    <strong>Samsung Galaxy S25 Ultra</strong>
-                                    <span>Main Phone</span>
-                                    <br />
-                                    <span
-                                        >SoC: Qualcomm Snapdragon 8 Elite</span
-                                    >
-                                    <span>RAM: LPDDR5X 12GB</span>
-                                    <span>Storage: UFS 4.0 512GB</span>
-                                    <span>OS: One UI 8(Android 16)</span>
-                                    <br />
-                                    <strong>Google Pixel 6a</strong>
-                                    <span>Sub Phone</span>
-                                    <br />
-                                    <span>SoC: Google Tensor</span>
-                                    <span>RAM: LPDDR5 6GB</span>
-                                    <span>Storage: UFS 3.1 128GB</span>
-                                    <span>OS: Android 16(GrapheneOS)</span>
-                                </li>
-                                <li>
-                                    <strong>My Computers</strong>
-                                    <br />
-                                    <strong
-                                        >Lenovo ThinkPad T14 Gen 5 (AMD)</strong
-                                    >
-                                    <span>Main Computer for Daily Use</span>
-                                    <br />
-                                    <span>CPU: AMD Ryzen 7 PRO 8840U</span>
-                                    <span>RAM: Kingston DDR5-5600 32GB</span>
-                                    <span
-                                        >GPU: AMD Radeon 780M(Integrated)</span
-                                    >
-                                    <span
-                                        >Storage: Micron PCIe 4.0 NVMe SSD
-                                        512GB</span
-                                    >
-                                    <span>OS: CachyOS Linux(Arch-based)</span>
-                                    <span>IDE: Zed</span>
-                                    <span>Browser: Zen Browser</span>
-                                    <br />
-                                    <strong>ASUS TUF Gaming A15 (FA507)</strong>
-                                    <span
-                                        >Sub Computer for AAA and VR
-                                        Gaming</span
-                                    >
-                                    <br />
-                                    <span>CPU: AMD Ryzen 7 6800H</span>
-                                    <span>RAM: Samsung DDR5-4800 16GB</span>
-                                    <span
-                                        >GPU: NVIDIA GeForce RTX 3050
-                                        Laptop(Dedicated)</span
-                                    >
-                                    <span
-                                        >Storage: Intel PCIe 3.0 NVMe SSD
-                                        512GB</span
-                                    >
-                                    <span>OS: Windows 11 Home</span>
-                                </li>
-                            </ul>
+                            <div class="device-group">
+                                <p class="group-title">Phones</p>
+                                <div class="device">
+                                    <div class="device-head">
+                                        <strong>Nothing Phone (3)</strong>
+                                        <span class="tag">Main</span>
+                                    </div>
+                                    <dl class="specs">
+                                        <div>
+                                            <dt>SoC</dt>
+                                            <dd>Snapdragon 8s Gen 4</dd>
+                                        </div>
+                                        <div>
+                                            <dt>RAM</dt>
+                                            <dd>LPDDR5X 16GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Storage</dt>
+                                            <dd>UFS 4.0 512GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>OS</dt>
+                                            <dd>Nothing OS 4.1 (Android 16)</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                                <div class="device">
+                                    <div class="device-head">
+                                        <strong>Google Pixel 6a</strong>
+                                        <span class="tag">Sub</span>
+                                    </div>
+                                    <dl class="specs">
+                                        <div>
+                                            <dt>SoC</dt>
+                                            <dd>Google Tensor</dd>
+                                        </div>
+                                        <div>
+                                            <dt>RAM</dt>
+                                            <dd>LPDDR5 6GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Storage</dt>
+                                            <dd>UFS 3.1 128GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>OS</dt>
+                                            <dd>Android 16 (Evolution X)</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="device-group">
+                                <p class="group-title">Computers</p>
+                                <div class="device">
+                                    <div class="device-head">
+                                        <strong
+                                            >Lenovo ThinkPad T14 Gen 5
+                                            (AMD)</strong
+                                        >
+                                        <span class="tag">Daily use</span>
+                                    </div>
+                                    <dl class="specs">
+                                        <div>
+                                            <dt>CPU</dt>
+                                            <dd>AMD Ryzen 7 PRO 8840U</dd>
+                                        </div>
+                                        <div>
+                                            <dt>RAM</dt>
+                                            <dd>Kingston DDR5-5600 32GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>GPU</dt>
+                                            <dd>AMD Radeon 780M (iGPU)</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Storage</dt>
+                                            <dd>Micron PCIe 4.0 NVMe 512GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>OS</dt>
+                                            <dd>CachyOS Linux (Arch-based)</dd>
+                                        </div>
+                                        <div>
+                                            <dt>IDE</dt>
+                                            <dd>Zed</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Browser</dt>
+                                            <dd>Zen Browser</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                                <div class="device">
+                                    <div class="device-head">
+                                        <strong
+                                            >ASUS TUF Gaming A15 (FA507)</strong
+                                        >
+                                        <span class="tag">AAA &amp; VR</span>
+                                    </div>
+                                    <dl class="specs">
+                                        <div>
+                                            <dt>CPU</dt>
+                                            <dd>AMD Ryzen 7 6800H</dd>
+                                        </div>
+                                        <div>
+                                            <dt>RAM</dt>
+                                            <dd>Samsung DDR5-4800 16GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>GPU</dt>
+                                            <dd>NVIDIA GeForce RTX 3050 Laptop</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Storage</dt>
+                                            <dd>Intel PCIe 3.0 NVMe 512GB</dd>
+                                        </div>
+                                        <div>
+                                            <dt>OS</dt>
+                                            <dd>Windows 11 Home</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
                         </details>
                     </div>
                     <div class="card">
-                        <h3>Gallery (Click to expand)</h3>
+                        <h3>Gallery</h3>
                         <div class="gallery-grid">
                             <div class="gallery-item">
                                 <a href="./imgs/Gallery/1.webp" target="_blank">
@@ -179,8 +247,8 @@
                 </div>
             </div>
             <nav class="nav-links">
+                <a href="./jp/index.html" class="btn btn-primary">🇯🇵 日本語</a>
                 <a href="./light.html" class="btn">Lightweight Version</a>
-                <a href="./jp/index.html" class="btn">🇯🇵 日本語</a>
                 <a href="./database" class="btn">Database</a>
                 <a href="./links" class="btn">Links</a>
                 <a href="https://x.com/CachyToki3655" class="btn">Twitter</a>
@@ -189,14 +257,14 @@
                 >
             </nav>
             <footer>
-                <p>©2026 CachyToki All Rights Reserved.</p>
-                <p><a href="./old/index.html">Go back to Old Design</a></p>
-                <br />
                 <p>
-                    some codes are generated by
-                    <a href="https://gemini.google.com">Google Gemini</a>
+                    ©2026 CachyToki. All Rights Reserved.<br />
+                    <a href="./old/index.html">Go back to Old Design</a>
                 </p>
-                <p>
+                <p class="credits">
+                    some codes are generated by
+                    <a href="https://claude.com">Anthropic Claude(Opus 5)</a
+                    ><br />
                     <a
                         href="https://github.com/CachyToki/cachytoki.github.io.git"
                         target="_blank"
