@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OS Check — Linux / macOS / Windows</title>
+<style>
+  :root {
+    --bg: #f6f6f4;
+    --card: #ffffff;
+    --text: #1a1a18;
+    --muted: #6b6b66;
+    --line: #e2e2dd;
+    --linux: #16a34a;
+    --macos: #eab308;
+    --windows: #dc2626;
+    --other: #64748b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17171a;
+      --card: #1f1f23;
+      --text: #ececea;
+      --muted: #9a9a95;
+      --line: #32323a;
+      --linux: #22c55e;
+      --macos: #facc15;
+      --windows: #ef4444;
+      --other: #94a3b8;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.7 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* --- Banner --- */
+  #banner {
+    background: var(--os-color, var(--other));
+    color: #fff;
+    padding: 40px 24px;
+    text-align: center;
+    transition: background .2s ease;
+  }
+  #banner.is-macos { color: #3a2e00; }   /* white on yellow is unreadable */
+  #banner .os-name {
+    margin: 0;
+    font-size: clamp(34px, 9vw, 64px);
+    font-weight: 700;
+    letter-spacing: -.02em;
+  }
+  #banner .verdict {
+    margin: 10px 0 0;
+    font-size: clamp(15px, 3.4vw, 19px);
+    opacity: .92;
+  }
+
+  /* --- Body --- */
+  main { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+  h2 { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 32px 0 10px; font-weight: 600; }
+  h2:first-child { margin-top: 0; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 4px 18px;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 11px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child th, tr:last-child td { border-bottom: none; }
+  th { width: 34%; font-weight: 500; color: var(--muted); white-space: nowrap; padding-right: 14px; }
+  td { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; word-break: break-all; }
+  td.none { color: var(--muted); font-style: italic; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 13px 5px 10px; font-size: 13px; background: var(--card);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .note { color: var(--muted); font-size: 13px; margin-top: 22px; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .92em; }
+  .testbar {
+    background: #422006; color: #fde68a; padding: 9px 20px;
+    font-size: 13px; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div id="testbar" class="testbar" hidden></div>
+
+<div id="banner">
+  <p class="os-name" id="osName">Detecting…</p>
+  <p class="verdict" id="verdict"></p>
+</div>
+
+<main>
+  <h2>How this was decided</h2>
+  <div class="card">
+    <table>
+      <tr><th>Signal used</th><td id="src"></td></tr>
+      <tr><th>Match</th><td id="reason"></td></tr>
+    </table>
+  </div>
+
+  <h2>Values reported by the browser</h2>
+  <div class="card">
+    <table>
+      <tr><th>navigator.userAgent</th><td id="v-ua"></td></tr>
+      <tr><th>userAgentData.platform</th><td id="v-uadp"></td></tr>
+      <tr><th>userAgentData.mobile</th><td id="v-uadm"></td></tr>
+      <tr><th>userAgentData.brands</th><td id="v-uadb"></td></tr>
+      <tr><th>navigator.platform</th><td id="v-plat"></td></tr>
+      <tr><th>maxTouchPoints</th><td id="v-touch"></td></tr>
+      <tr><th>navigator.language</th><td id="v-lang"></td></tr>
+    </table>
+  </div>
+
+  <h2>Banner colors</h2>
+  <div class="legend">
+    <span class="chip"><span class="dot" style="background:var(--linux)"></span>Linux</span>
+    <span class="chip"><span class="dot" style="background:var(--macos)"></span>macOS</span>
+    <span class="chip"><span class="dot" style="background:var(--windows)"></span>Windows</span>
+    <span class="chip"><span class="dot" style="background:var(--other)"></span>Other / unknown</span>
+  </div>
+
+  <p class="note">
+    User-Agent strings are trivially spoofed, and browsers keep freezing and trimming them (Chrome's UA Reduction, for one).
+    Treat this as a hint, never a guarantee — gate features on feature detection instead of on the OS.<br>
+    For testing: pass any UA string as <code>?ua=</code> in the URL and the page will classify that string instead.
+  </p>
+</main>
+
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var fakeUA = params.get('ua');
+
+  var ua = fakeUA !== null ? fakeUA : (navigator.userAgent || '');
+  var uaData = navigator.userAgentData || null;
+  var touch = navigator.maxTouchPoints || 0;
+
+  // While testing with ?ua=, ignore client hints and judge the string alone
+  var testing = fakeUA !== null;
+  if (testing) { uaData = null; touch = 0; }
+
+  var OS = {
+    linux:    { name: 'Linux',        color: 'var(--linux)',   cls: 'is-linux' },
+    macos:    { name: 'macOS',        color: 'var(--macos)',   cls: 'is-macos' },
+    windows:  { name: 'Windows',      color: 'var(--windows)', cls: 'is-windows' },
+    android:  { name: 'Android',      color: 'var(--other)',   cls: 'is-other' },
+    ios:      { name: 'iOS / iPadOS', color: 'var(--other)',   cls: 'is-other' },
+    chromeos: { name: 'ChromeOS',     color: 'var(--other)',   cls: 'is-other' },
+    unknown:  { name: 'Unknown',      color: 'var(--other)',   cls: 'is-other' }
+  };
+
+  function detect() {
+    // 1) Prefer Client Hints when available — more reliable than the UA string
+    if (uaData && uaData.platform) {
+      var p = uaData.platform;
+      var map = {
+        'Linux': 'linux', 'macOS': 'macos', 'Windows': 'windows',
+        'Android': 'android', 'Chrome OS': 'chromeos', 'Chromium OS': 'chromeos', 'iOS': 'ios'
+      };
+      if (map[p]) {
+        return {
+          id: map[p],
+          source: 'navigator.userAgentData.platform (Client Hints)',
+          reason: 'platform reported "' + p + '"'
+        };
+      }
+    }
+
+    // 2) Fall back to the UA string. Android contains "Linux", so test it first
+    var src = testing ? 'the string passed in ?ua=' : 'navigator.userAgent (no Client Hints)';
+    if (/Android/i.test(ua))
+      return { id: 'android', source: src, reason: 'contains "Android" (Linux-based, but reported as Android)' };
+    if (/iPhone|iPad|iPod/i.test(ua))
+      return { id: 'ios', source: src, reason: 'contains "iPhone" / "iPad" / "iPod"' };
+    if (/CrOS/.test(ua))
+      return { id: 'chromeos', source: src, reason: 'contains "CrOS"' };
+    if (/Windows|Win32|Win64|WOW64/i.test(ua))
+      return { id: 'windows', source: src, reason: 'contains "Windows"' };
+    if (/Macintosh|Mac OS X/i.test(ua)) {
+      if (touch > 1)
+        return { id: 'ios', source: src + ' + maxTouchPoints', reason: 'claims Macintosh but reports ' + touch + ' touch points — iPadOS in desktop mode' };
+      return { id: 'macos', source: src, reason: 'contains "Macintosh" / "Mac OS X"' };
+    }
+    if (/Linux|X11|Ubuntu|Fedora|CrOS|BSD/i.test(ua))
+      return { id: 'linux', source: src, reason: 'contains "Linux" / "X11" and is neither Android nor ChromeOS' };
+
+    return { id: 'unknown', source: src, reason: 'matched none of the known patterns' };
+  }
+
+  function text(id, value) {
+    var el = document.getElementById(id);
+    if (value === undefined || value === null || value === '') {
+      el.textContent = '(not available)';
+      el.className = 'none';
+    } else {
+      el.textContent = value;
+    }
+  }
+
+  var r = detect();
+  var os = OS[r.id];
+  var isLinux = r.id === 'linux';
+
+  var banner = document.getElementById('banner');
+  banner.style.setProperty('--os-color', os.color);
+  banner.classList.add(os.cls);
+  document.getElementById('osName').textContent = os.name;
+  document.getElementById('verdict').textContent = isLinux
+    ? 'This machine is running Linux'
+    : 'This machine is not running Linux';
+  document.title = os.name + ' — OS Check';
+
+  document.getElementById('src').textContent = r.source;
+  document.getElementById('reason').textContent = r.reason;
+
+  text('v-ua', ua);
+  text('v-uadp', uaData ? uaData.platform : '');
+  text('v-uadm', uaData ? String(uaData.mobile) : '');
+  text('v-uadb', uaData && uaData.brands ? uaData.brands.map(function (b) { return b.brand + ' ' + b.version; }).join(', ') : '');
+  text('v-plat', navigator.platform);
+  text('v-touch', String(navigator.maxTouchPoints || 0));
+  text('v-lang', navigator.language);
+
+  if (testing) {
+    var bar = document.getElementById('testbar');
+    bar.hidden = false;
+    bar.textContent = 'Test mode: classifying the string passed in ?ua=, not your real browser values';
+  }
+})();
+</script>
+</body>
+</html>
