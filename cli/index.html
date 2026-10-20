@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Explore CachyToki's profile, daily drivers, games and gallery from an interactive browser terminal." />
+    <meta property="og:title" content="CachyToki | Terminal" />
+    <meta property="og:description" content="Blue Archive, tech, anime and guns. A little corner of the web, in a terminal." />
+    <meta property="og:image" content="../imgs/Grokbot_Toki.webp" />
+    <link rel="icon" href="../imgs/Grokbot_Toki.webp" type="image/webp" />
+    <link rel="stylesheet" href="./index.css" />
+    <script src="./index.js" defer></script>
+    <title>CachyToki | Terminal</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#command">Skip to command input</a>
+    <div class="workspace">
+      <header class="site-header">
+        <a class="wordmark" href="../index.html"><span aria-hidden="true">[ct]</span> CachyToki<span class="muted"> / terminal</span></a>
+        <a class="back-link" href="../index.html">GUI mode <span aria-hidden="true">↗</span></a>
+      </header>
+      <main class="terminal" aria-label="CachyToki interactive terminal">
+        <div class="titlebar">
+          <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span>visitor@cachy-Web: ~</span>
+          <span class="session-label">BROWSER SESSION</span>
+        </div>
+        <div class="terminal-layout">
+          <nav class="sidebar" aria-label="Run a command">
+            <p class="sidebar-label">EXPLORER</p>
+            <p class="directory"><span aria-hidden="true">⌄</span> ~/toki</p>
+            <button type="button" data-command="fastfetch"><span aria-hidden="true">◈</span> overview</button>
+            <button type="button" data-command="about"><span aria-hidden="true">~</span> about.txt</button>
+            <button type="button" data-command="devices"><span aria-hidden="true">▣</span> devices.txt</button>
+            <button type="button" data-command="games"><span aria-hidden="true">＋</span> games.txt</button>
+            <button type="button" data-command="gallery"><span aria-hidden="true">▧</span> gallery/</button>
+            <button type="button" data-command="links"><span aria-hidden="true">↗</span> links.txt</button>
+            <button type="button" data-command="search"><span aria-hidden="true">⌕</span> search</button>
+            <div class="sidebar-bottom">
+              <button type="button" data-command="help"><span aria-hidden="true">?</span> help</button>
+              <p>A personal corner<br />of the internet.<br /><span class="accent">;)</span></p>
+            </div>
+          </nav>
+          <section class="session" aria-label="Terminal session">
+            <div class="scrollback" id="scrollback" role="region" aria-label="Command output" tabindex="0">
+              <div class="welcome"><span class="accent">●</span> Connected to CachyToki's corner of the web.<br /><span class="muted">A browser terminal. Get comfortable, have a look around.</span></div>
+              <div id="output"></div>
+            </div>
+            <div class="input-area">
+              <p class="input-hint" id="input-hint">Type <button type="button" data-command="help">help</button> to explore, or choose a file on the left.</p>
+              <form id="command-form" autocomplete="off">
+                <label for="command"><span class="prompt-user">visitor</span><span class="muted">@</span><span class="prompt-host">cachy-Web</span><span class="muted">:~</span><span class="prompt-symbol">❯</span><span class="sr-only">Enter a command</span></label>
+                <input id="command" name="command" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" aria-describedby="input-hint" maxlength="500" placeholder="type a command…" enterkeyhint="send" />
+                <button class="run-button" type="submit" aria-label="Run command">↵</button>
+              </form>
+            </div>
+          </section>
+        </div>
+        <div class="statusbar"><span><span class="status-dot" aria-hidden="true">●</span> personal website <span class="status-divider">/</span> v.07</span><span>UTF-8 <span class="status-divider">/</span> <span id="theme-name">mocha / lavender</span></span></div>
+      </main>
+      <footer class="site-footer"><span>©2026 CachyToki <span class="muted">· All Rights Reserved.</span></span><span class="keyboard-tips"><kbd>Tab</kbd> complete <kbd>↑</kbd><kbd>↓</kbd> history <kbd>Ctrl L</kbd> clear</span><a href="https://github.com/CachyToki/cachytoki.github.io" target="_blank" rel="noopener noreferrer">source ↗</a></footer>
+      <noscript><p class="no-script">This terminal needs JavaScript. <a href="../index.html">Visit the regular homepage</a> or <a href="../light.html">lightweight version</a>.</p></noscript>
+      <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+    </div>
+  </body>
+</html>
