@@ -21,7 +21,7 @@
   --accent-soft: #b4befe12;
   --accent-border: #b4befe30;
   --warm: #fab387; /* Peach */
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, "Noto Sans Mono CJK JP", "Yu Gothic", monospace;
   font-size: 13px;
 }
 :root[data-theme="cyan"] { --accent: var(--sky); --accent-soft: #89dceb12; --accent-border: #89dceb30; }
@@ -56,7 +56,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .directory { font-size: 11px; margin: 0 8px 12px; }
 .directory span { margin-right: 8px; color: var(--muted); }
 .sidebar button { border: 1px solid transparent; background: transparent; color: var(--muted); text-align: left; padding: 7px 11px; width: 100%; border-radius: 4px; font-size: 12px; }
-.sidebar button span { color: var(--muted); display: inline-block; width: 22px; }
+.sidebar button span[aria-hidden="true"] { color: var(--muted); display: inline-block; width: 22px; }
 .sidebar button:hover, .sidebar button[aria-current="true"] { background: var(--accent-soft); color: var(--accent); }
 .sidebar button[aria-current="true"] { border-color: var(--accent-border); }
 .sidebar button[aria-current="true"] span { color: var(--accent); }
@@ -154,7 +154,7 @@ kbd { font: inherit; color: var(--text); padding: 1px 4px; border: 1px solid var
   .sidebar { flex-direction: row; gap: 5px; overflow-x: auto; padding: 10px; border-right: 0; border-bottom: 1px solid var(--line); }
   .sidebar-label, .directory, .sidebar-bottom { display: none; }
   .sidebar button { width: auto; white-space: nowrap; font-size: 11px; padding: 6px 9px; }
-  .sidebar button span { display: none; }
+  .sidebar button span[aria-hidden="true"] { display: none; }
   .session { height: 66vh; min-height: 480px; }
   .scrollback { padding: 20px 16px; }
   .welcome { margin-bottom: 22px; }

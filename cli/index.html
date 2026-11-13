@@ -4,63 +4,63 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
-    <meta name="description" content="Explore CachyToki's profile, daily drivers, games and gallery from an interactive browser terminal." />
-    <meta property="og:title" content="CachyToki | Terminal" />
-    <meta property="og:description" content="Blue Archive, tech, anime and guns. A little corner of the web, in a terminal." />
+    <meta name="description" content="Explore CachyToki's profile, daily drivers, games and gallery from an interactive browser terminal." data-ja-content="ターミナルでCachyTokiのプロフィール、愛用デバイス、好きなゲーム、ギャラリーを探索できます。" />
+    <meta property="og:title" content="CachyToki | Terminal" data-ja-content="CachyToki | ターミナル" />
+    <meta property="og:description" content="Blue Archive, tech, anime and guns. A little corner of the web, in a terminal." data-ja-content="ブルーアーカイブ、テクノロジー、アニメ、銃。ウェブの片隅をターミナルから。" />
     <meta property="og:image" content="../imgs/Grokbot_Toki.webp" />
     <link rel="icon" href="../imgs/Grokbot_Toki.webp" type="image/webp" />
     <link rel="stylesheet" href="./index.css" />
     <script src="./index.js" defer></script>
-    <title>CachyToki | Terminal</title>
+    <title data-ja="CachyToki | ターミナル">CachyToki | Terminal</title>
   </head>
   <body>
-    <a class="skip-link" href="#command">Skip to command input</a>
+    <a class="skip-link" href="#command" data-ja="コマンド入力へ移動">Skip to command input</a>
     <div class="workspace">
       <header class="site-header">
-        <a class="wordmark" href="../index.html"><span aria-hidden="true">[ct]</span> CachyToki<span class="muted"> / terminal</span></a>
-        <a class="back-link" href="../index.html">GUI mode <span aria-hidden="true">↗</span></a>
+        <a class="wordmark" href="../index.html" data-ja-href="../jp/index.html"><span aria-hidden="true">[ct]</span> CachyToki<span class="muted" data-ja=" / ターミナル"> / terminal</span></a>
+        <a class="back-link" href="../index.html" data-ja-href="../jp/index.html"><span data-ja="GUIモード">GUI mode</span> <span aria-hidden="true">↗</span></a>
       </header>
-      <main class="terminal" aria-label="CachyToki interactive terminal">
+      <main class="terminal" aria-label="CachyToki interactive terminal" data-ja-label="CachyTokiの対話型ターミナル">
         <div class="titlebar">
           <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
           <span>visitor@cachy-Web: ~</span>
-          <span class="session-label">BROWSER SESSION</span>
+          <span class="session-label" data-ja="ブラウザーセッション">BROWSER SESSION</span>
         </div>
         <div class="terminal-layout">
-          <nav class="sidebar" aria-label="Run a command">
-            <p class="sidebar-label">EXPLORER</p>
+          <nav class="sidebar" aria-label="Run a command" data-ja-label="コマンドを実行">
+            <p class="sidebar-label" data-ja="エクスプローラー">EXPLORER</p>
             <p class="directory"><span aria-hidden="true">⌄</span> ~/toki</p>
-            <button type="button" data-command="fastfetch"><span aria-hidden="true">◈</span> overview</button>
+            <button type="button" data-command="fastfetch"><span aria-hidden="true">◈</span> <span data-ja="概要">overview</span></button>
             <button type="button" data-command="about"><span aria-hidden="true">~</span> about.txt</button>
             <button type="button" data-command="devices"><span aria-hidden="true">▣</span> devices.txt</button>
             <button type="button" data-command="games"><span aria-hidden="true">＋</span> games.txt</button>
             <button type="button" data-command="gallery"><span aria-hidden="true">▧</span> gallery/</button>
             <button type="button" data-command="links"><span aria-hidden="true">↗</span> links.txt</button>
-            <button type="button" data-command="search"><span aria-hidden="true">⌕</span> search</button>
+            <button type="button" data-command="search"><span aria-hidden="true">⌕</span> <span data-ja="検索">search</span></button>
             <div class="sidebar-bottom">
-              <button type="button" data-command="help"><span aria-hidden="true">?</span> help</button>
-              <p>A personal corner<br />of the internet.<br /><span class="accent">;)</span></p>
+              <button type="button" data-command="help"><span aria-hidden="true">?</span> <span data-ja="ヘルプ">help</span></button>
+              <p><span data-ja="インターネットの">A personal corner</span><br /><span data-ja="小さな個人サイト。">of the internet.</span><br /><span class="accent">;)</span></p>
             </div>
           </nav>
-          <section class="session" aria-label="Terminal session">
-            <div class="scrollback" id="scrollback" role="region" aria-label="Command output" tabindex="0">
-              <div class="welcome"><span class="accent">●</span> Connected to CachyToki's corner of the web.<br /><span class="muted">A browser terminal. Get comfortable, have a look around.</span></div>
+          <section class="session" aria-label="Terminal session" data-ja-label="ターミナルセッション">
+            <div class="scrollback" id="scrollback" role="region" aria-label="Command output" data-ja-label="コマンドの出力" tabindex="0">
+              <div class="welcome"><span class="accent">●</span> <span data-ja="CachyTokiのウェブサイトに接続しました。">Connected to CachyToki's corner of the web.</span><br /><span class="muted" data-ja="ブラウザーの中のターミナルです。ゆっくり見ていってください。">A browser terminal. Get comfortable, have a look around.</span></div>
               <div id="output"></div>
             </div>
             <div class="input-area">
-              <p class="input-hint" id="input-hint">Type <button type="button" data-command="help">help</button> to explore, or choose a file on the left.</p>
+              <p class="input-hint" id="input-hint"><span data-ja="使い方は ">Type </span><button type="button" data-command="help">help</button><span data-ja=" を入力するか、エクスプローラーからファイルを選んでください。"> to explore, or choose a file on the left.</span></p>
               <form id="command-form" autocomplete="off">
-                <label for="command"><span class="prompt-user">visitor</span><span class="muted">@</span><span class="prompt-host">cachy-Web</span><span class="muted">:~</span><span class="prompt-symbol">❯</span><span class="sr-only">Enter a command</span></label>
+                <label for="command"><span class="prompt-user">visitor</span><span class="muted">@</span><span class="prompt-host">cachy-Web</span><span class="muted">:~</span><span class="prompt-symbol">❯</span><span class="sr-only" data-ja="コマンドを入力">Enter a command</span></label>
                 <input id="command" name="command" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" aria-describedby="input-hint" maxlength="500" placeholder="type a command…" enterkeyhint="send" />
-                <button class="run-button" type="submit" aria-label="Run command">↵</button>
+                <button class="run-button" type="submit" aria-label="Run command" data-ja-label="コマンドを実行">↵</button>
               </form>
             </div>
           </section>
         </div>
-        <div class="statusbar"><span><span class="status-dot" aria-hidden="true">●</span> personal website <span class="status-divider">/</span> v.07</span><span>UTF-8 <span class="status-divider">/</span> <span id="theme-name">mocha / lavender</span></span></div>
+        <div class="statusbar"><span><span class="status-dot" aria-hidden="true">●</span> <span data-ja="個人サイト">personal website</span> <span class="status-divider">/</span> v.07</span><span>UTF-8 <span class="status-divider">/</span> <span id="theme-name">mocha / lavender</span></span></div>
       </main>
-      <footer class="site-footer"><span>©2026 CachyToki <span class="muted">· All Rights Reserved.</span></span><span class="keyboard-tips"><kbd>Tab</kbd> complete <kbd>↑</kbd><kbd>↓</kbd> history <kbd>Ctrl L</kbd> clear</span><a href="https://github.com/CachyToki/cachytoki.github.io" target="_blank" rel="noopener noreferrer">source ↗</a></footer>
-      <noscript><p class="no-script">This terminal needs JavaScript. <a href="../index.html">Visit the regular homepage</a> or <a href="../light.html">lightweight version</a>.</p></noscript>
+      <footer class="site-footer"><span>©2026 CachyToki <span class="muted">· All Rights Reserved.</span></span><span class="keyboard-tips"><kbd>Tab</kbd> <span data-ja="補完">complete</span> <kbd>↑</kbd><kbd>↓</kbd> <span data-ja="履歴">history</span> <kbd>Ctrl L</kbd> <span data-ja="消去">clear</span></span><a href="https://github.com/CachyToki/cachytoki.github.io" target="_blank" rel="noopener noreferrer"><span data-ja="ソースコード">source</span> ↗</a></footer>
+      <noscript><p class="no-script">This terminal needs JavaScript. <a href="../index.html">Visit the regular homepage</a> or <a href="../light.html">lightweight version</a>.<br /><span lang="ja">このターミナルにはJavaScriptが必要です。<a href="../jp/index.html">通常のホームページ</a>または<a href="../jp/light.html">軽量版</a>をご利用ください。</span></p></noscript>
       <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
     </div>
   </body>

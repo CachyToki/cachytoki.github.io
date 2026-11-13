@@ -2,9 +2,25 @@
 
 // Profile content mirrors ../index.html. No shell commands are executed.
 (() => {
+  function detectLanguage(browser = navigator) {
+    const preferred = browser.languages?.[0] || browser.language || "en";
+    return /^ja(?:-|$)/i.test(preferred) ? "ja" : "en";
+  }
+  const language = detectLanguage();
+  const t = (english, japanese) => language === "ja" ? japanese : english;
+  document.documentElement.lang = language;
+  if (language === "ja") {
+    for (const [attribute, target] of [["data-ja", "textContent"], ["data-ja-label", "aria-label"], ["data-ja-content", "content"], ["data-ja-href", "href"]]) {
+      document.querySelectorAll(`[${attribute}]`).forEach((node) => {
+        if (target === "textContent") node.textContent = node.getAttribute(attribute);
+        else node.setAttribute(target, node.getAttribute(attribute));
+      });
+    }
+  }
   const output = document.querySelector("#output");
   const scrollback = document.querySelector("#scrollback");
   const input = document.querySelector("#command");
+  input.placeholder = t("type a command…", "コマンドを入力…");
   const announcement = document.querySelector("#announcement");
   const inputHint = document.querySelector("#input-hint");
   const defaultHintNodes = [...inputHint.childNodes];
@@ -17,54 +33,56 @@
   const themeStorageKey = "cachytoki-terminal-mocha-accent";
   let searchSession = null;
   const searchEngines = [
-    { id: "duckduckgo", name: "DuckDuckGo", note: "Default. Uses Bing's index. Private.", url: "https://duckduckgo.com/", parameter: "q" },
-    { id: "startpage", name: "Startpage", note: "A search engine from a European company. Uses Google's index. Private.", url: "https://www.startpage.com/sp/search", parameter: "query" },
-    { id: "google", name: "Google", note: "It's Google. The most well-known search engine. I don't recommend it because of privacy.", url: "https://www.google.com/search", parameter: "q" },
-    { id: "bing", name: "Bing", note: "A search engine by Microslo—Microsoft. I don't recommend it either because of privacy.", url: "https://www.bing.com/search", parameter: "q" },
+    { id: "duckduckgo", name: "DuckDuckGo", note: t("Default. Uses Bing's index. Private.", "既定の検索エンジン。Bingのインデックスを利用。プライバシー重視。"), url: "https://duckduckgo.com/", parameter: "q" },
+    { id: "startpage", name: "Startpage", note: t("A search engine from a European company. Uses Google's index. Private.", "欧州企業の検索エンジン。Googleのインデックスを利用。プライバシー重視。"), url: "https://www.startpage.com/sp/search", parameter: "query" },
+    { id: "google", name: "Google", note: t("It's Google. The most well-known search engine. I don't recommend it because of privacy.", "おなじみのGoogle。最も有名な検索エンジンですが、プライバシーの観点からおすすめしません。"), url: "https://www.google.com/search", parameter: "q" },
+    { id: "bing", name: "Bing", note: t("A search engine by Microslo—Microsoft. I don't recommend it either because of privacy.", "マイクロスロ……Microsoftの検索エンジン。こちらもプライバシーの観点からおすすめしません。"), url: "https://www.bing.com/search", parameter: "q" },
   ];
 
   const devices = [
-    { name: "Nothing Phone (3)", role: "Main phone", specs: { SoC: "Snapdragon 8s Gen 4", RAM: "LPDDR5X 16GB", Storage: "UFS 4.0 512GB", OS: "Nothing OS 5.0 (Android 17)", Browser: "Ironfox" } },
-    { name: "Google Pixel 6a", role: "Sub phone", specs: { SoC: "Google Tensor", RAM: "LPDDR5 6GB", Storage: "UFS 3.1 128GB", OS: "LineageOS 23.2 (Android 16)", Browser: "Ironfox" } },
-    { name: "Lenovo ThinkPad T14 Gen 5 (AMD)", role: "Daily use", specs: { CPU: "AMD Ryzen 7 PRO 8840U", RAM: "Kingston DDR5-5600 32GB", GPU: "AMD Radeon 780M (iGPU)", Storage: "Micron PCIe 4.0 NVMe 512GB", OS: "CachyOS (Arch-based)", Desktop: "KDE Plasma", IDE: "Zed/Neovim(Vim)", Browser: "Zen" } },
-    { name: "ASUS TUF Gaming A15 (FA507)", role: "AAA & VR", specs: { CPU: "AMD Ryzen 7 6800H", RAM: "Samsung DDR5-4800 16GB", GPU: "NVIDIA GeForce RTX 3050 Laptop", Storage: "Intel PCIe 3.0 NVMe 512GB", OS: "Windows 11 (ReviOS)", Browser: "LibreWolf" } },
+    { name: "Nothing Phone (3)", role: t("Main phone", "メインのスマートフォン"), specs: { SoC: "Snapdragon 8s Gen 4", RAM: "LPDDR5X 16GB", Storage: "UFS 4.0 512GB", OS: "Nothing OS 5.0 (Android 17)", Browser: "Ironfox" } },
+    { name: "Google Pixel 6a", role: t("Sub phone", "サブのスマートフォン"), specs: { SoC: "Google Tensor", RAM: "LPDDR5 6GB", Storage: "UFS 3.1 128GB", OS: "LineageOS 23.2 (Android 16)", Browser: "Ironfox" } },
+    { name: "Lenovo ThinkPad T14 Gen 5 (AMD)", role: t("Daily use", "普段使い"), specs: { CPU: "AMD Ryzen 7 PRO 8840U", RAM: "Kingston DDR5-5600 32GB", GPU: "AMD Radeon 780M (iGPU)", Storage: "Micron PCIe 4.0 NVMe 512GB", OS: "CachyOS (Arch-based)", Desktop: "KDE Plasma", IDE: "Zed/Neovim(Vim)", Browser: "Zen" } },
+    { name: "ASUS TUF Gaming A15 (FA507)", role: t("Gaming", "ゲーミング"), specs: { Chassis: "Antec P30 Air", MotherBoard: "ASRock B850 Challenger WiFi", CPU: "AMD Ryzen 9700X", RAM: "Patriot Viper Venom DDR5-6000 CL30 32GB(16x2)", GPU: "ASRock Challenger Radeon RX 9060 XT 16GB OC", Storage: "Biwin NV7400 PCIe 4.0 NVMe 1TB & Patriot P300 PCIe 3.0 NVME 512GB", OS: "Windows 11 (ReviOS)", Browser: "Zen" } },
   ];
   const games = [
-    ["01", "Blue Archive", "https://www.nexon.com/main/en/Blue%20Archive/"],
-    ["02", "Arknights: Endfield", "https://endfield.gryphline.com/"],
-    ["03", "Zenless Zone Zero", "https://zenless.hoyoverse.com/en/"],
+    ["01", t("Blue Archive", "ブルーアーカイブ"), "https://www.nexon.com/main/en/Blue%20Archive/"],
+    ["02", t("Arknights: Endfield", "アークナイツ：エンドフィールド"), "https://endfield.gryphline.com/"],
+    ["03", t("Zenless Zone Zero", "ゼンレスゾーンゼロ"), "https://zenless.hoyoverse.com/en/"],
     ["04", "Hot Dogs, Horseshoes & Hand Grenades (H3VR)", "https://store.steampowered.com/app/450540/"],
   ];
   const links = [
     ["twitter", "Twitter / X", "https://x.com/CachyToki3655"],
     ["youtube", "YouTube", "https://www.youtube.com/@CachyToki"],
     ["github", "GitHub", "https://github.com/CachyToki"],
-    ["github_repo", "GitHub Repository", "https://github.com/CachyToki/cachytoki.github.io.git"],
+    ["github_repo", t("GitHub Repository", "GitHubリポジトリ"), "https://github.com/CachyToki/cachytoki.github.io.git"],
     ["japanese", "日本語", "../jp/index.html"],
-    ["light", "Lightweight Version", "../light.html"],
-    ["database", "Database", "../database"],
-    ["links", "Links", "../links"],
-    ["old", "Old Design", "../old/index.html"],
+    ["light", t("Lightweight Version", "軽量版"), t("../light.html", "../jp/light.html")],
+    ["database", t("Database", "データベース"), "../database"],
+    ["links", t("Links", "リンク集"), "../links"],
+    ["old", t("Old Design", "旧デザイン"), "../old/index.html"],
     ["android", "Keep Android Open", "https://keepandroidopen.org"],
-    ["home", "GUI Homepage", "../index.html"],
+    ["home", t("GUI Homepage", "GUIホームページ"), t("../index.html", "../jp/index.html")],
   ];
   const descriptions = {
-    fastfetch: "A quick introduction",
-    about: "A little about me",
-    devices: "Daily drivers & full specs",
-    games: "Games I like",
-    gallery: "Four photos from my gallery",
-    links: "Find me & explore the site",
-    ls: "List the profile files",
-    "cat <file>": "Read a .txt file (try about.txt)",
-    "open <name>": "Show a link (try youtube)",
-    "search [query]": "Search the web; choose an engine (default: DuckDuckGo)",
-    "theme <color>": "Mocha accents: lavender, cyan, green, amber",
-    typeme: "Shows surprises to you",
-    ikisugi: "??? (I don't even know what is this)",
-    history: "Commands from this session",
-    clear: "Clear the terminal",
-    help: "Show this guide",
+    fastfetch: t("your info(from User Agent)", "あなたの情報(UA取得)"),
+    about: t("A little about me", "自己紹介"),
+    devices: t("Daily drivers & full specs", "愛用デバイスと詳しいスペック"),
+    games: t("Games I like", "好きなゲーム"),
+    gallery: t("Four photos from my gallery", "ギャラリーの写真4枚"),
+    links: t("Find me & explore the site", "SNSとサイト内のリンク"),
+    ls: t("List the profile files", "プロフィールのファイル一覧を表示"),
+    "cat <file>": t("Read a .txt file (try about.txt)", ".txtファイルを表示（例：cat about.txt）"),
+    "open <name>": t("Show a link (try youtube)", "リンクを表示（例：open youtube）"),
+    "search [query]": t("Search the web; choose an engine (default: DuckDuckGo)", "検索エンジンを選んでウェブを検索（既定：DuckDuckGo）"),
+    "theme <color>": t("Mocha accents: lavender, cyan, green, amber", "Mochaのアクセント色：lavender、cyan、green、amber"),
+    typeme: t("Shows surprises to you", "ちょっとしたサプライズ"),
+    ikisugi: t("??? (I don't even know what is this)", "？？？（自分でも何なのかわかりません）"),
+    "sudo <command>": t("Try to run a command as root", "rootとしてコマンドの実行を試みる"),
+    su: t("Try to switch to root", "rootへの切り替えを試みる"),
+    history: t("Commands from this session", "このセッションのコマンド履歴"),
+    clear: t("Clear the terminal", "ターミナルの出力を消去"),
+    help: t("Show this guide", "使い方を表示"),
   };
   const commands = [...Object.keys(descriptions).map((name) => name.split(" ")[0]), "whoami", "pwd"];
   const fileCommands = { "about.txt": "about", "devices.txt": "devices", "games.txt": "games", "links.txt": "links" };
@@ -78,9 +96,13 @@
   }
   function facts(values) {
     const list = element("dl", undefined, "facts");
+    const labels = {
+      Engine: t("Engine", "エンジン"), Storage: t("Storage", "ストレージ"),
+      Browser: t("Browser", "ブラウザー"), Desktop: t("Desktop", "デスクトップ"),
+    };
     for (const [key, value] of Object.entries(values)) {
       const row = element("div");
-      row.append(element("dt", key), element("dd", value));
+      row.append(element("dt", labels[key] || key), element("dd", value));
       list.append(row);
     }
     return list;
@@ -109,14 +131,14 @@
     // "AppleWebKit" and "like Gecko", and iOS browser brands can use WebKit.
     if (/Gecko\/\d/i.test(ua) && /rv:/i.test(ua)) {
       if (/SeaMonkey\//i.test(ua)) return "Gecko (SeaMonkey)";
-      if (/Firefox\//i.test(ua)) return "Gecko (Firefox or compatible)";
-      return "Gecko (browser unidentified)";
+      if (/Firefox\//i.test(ua)) return t("Gecko (Firefox or compatible)", "Gecko（Firefoxまたは互換ブラウザー）");
+      return t("Gecko (browser unidentified)", "Gecko（ブラウザー不明）");
     }
     if (/AppleWebKit\//i.test(ua)) {
-      if (/FxiOS\//i.test(ua)) return "WebKit (Firefox on iOS)";
-      if (/CriOS\//i.test(ua)) return "WebKit (Chrome on iOS)";
-      if (/EdgiOS\//i.test(ua)) return "WebKit (Edge on iOS)";
-      if (/OPiOS\//i.test(ua)) return "WebKit (Opera on iOS)";
+      if (/FxiOS\//i.test(ua)) return t("WebKit (Firefox on iOS)", "WebKit（iOS版Firefox）");
+      if (/CriOS\//i.test(ua)) return t("WebKit (Chrome on iOS)", "WebKit（iOS版Chrome）");
+      if (/EdgiOS\//i.test(ua)) return t("WebKit (Edge on iOS)", "WebKit（iOS版Edge）");
+      if (/OPiOS\//i.test(ua)) return t("WebKit (Opera on iOS)", "WebKit（iOS版Opera）");
     }
     if (brands.some(({ brand }) => brand === "Chromium") || /(?:Chrome|Chromium|HeadlessChrome)\//i.test(ua)) {
       const knownBrands = [
@@ -129,14 +151,14 @@
       if (/Edg(?:A)?\//i.test(ua)) return "Chromium / Blink (Edge)";
       if (/OPR\//i.test(ua)) return "Chromium / Blink (Opera)";
       if (/Vivaldi\//i.test(ua)) return "Chromium / Blink (Vivaldi)";
-      return "Chromium / Blink (Chrome or compatible)";
+      return t("Chromium / Blink (Chrome or compatible)", "Chromium / Blink（Chromeまたは互換ブラウザー）");
     }
     if (/AppleWebKit\//i.test(ua)) {
-      if (/Epiphany\//i.test(ua)) return "WebKit (WebKitGTK / GNOME Web)";
-      if (/Safari\//i.test(ua) && /Macintosh|iPhone|iPad|iPod/i.test(ua)) return "WebKit (Safari or compatible)";
-      return "WebKit (Safari / WebKitGTK or compatible)";
+      if (/Epiphany\//i.test(ua)) return t("WebKit (WebKitGTK / GNOME Web)", "WebKit（WebKitGTK / GNOME Web）");
+      if (/Safari\//i.test(ua) && /Macintosh|iPhone|iPad|iPod/i.test(ua)) return t("WebKit (Safari or compatible)", "WebKit（Safariまたは互換ブラウザー）");
+      return t("WebKit (Safari / WebKitGTK or compatible)", "WebKit（Safari / WebKitGTKまたは互換ブラウザー）");
     }
-    return "Unknown (browser does not identify its engine)";
+    return t("Unknown (browser does not identify its engine)", "不明（ブラウザーからエンジン情報を取得できません）");
   }
   function detectOperatingSystem(browser = navigator) {
     const ua = browser.userAgent || "";
@@ -160,14 +182,14 @@
       if (identity.toLowerCase().includes(os.toLowerCase())) return os;
     }
     if (/Linux/i.test(identity)) return "Linux";
-    return "Unknown (browser does not identify its OS)";
+    return t("Unknown (browser does not identify its OS)", "不明（ブラウザーからOS情報を取得できません）");
   }
   function fastfetch(parent) {
     const fetch = element("div", undefined, "fetch");
     const art = element("figure", undefined, "fetch-art");
     const image = element("img");
     image.src = "./toki.png";
-    image.alt = "Toki plush";
+    image.alt = t("Toki plush", "トキのぬいぐるみ");
     image.width = 1662;
     image.height = 2217;
     art.append(image, element("figcaption"));
@@ -182,7 +204,7 @@
     profile.append(palette);
     fetch.append(art, profile);
     parent.append(fetch);
-    line(parent, "Welcome to my website :3  Blue Archive, tech, anime and guns enthusiast. Type help to look around.", "intro");
+    line(parent, t("Welcome to my website :3  Blue Archive, tech, anime and guns enthusiast. Type help to look around.", "ウェブサイトへようこそ :3 ブルーアーカイブ、テクノロジー、アニメ、銃が好きです。help を入力して探索してみてください。"), "intro");
   }
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
@@ -196,20 +218,20 @@
   }
   function showSearchPrompt() {
     const choosingEngine = searchSession.stage === "engine";
-    input.placeholder = choosingEngine ? "1–4, engine name, or Enter for DuckDuckGo" : "enter your search query…";
+    input.placeholder = choosingEngine ? t("1–4, engine name, or Enter for DuckDuckGo", "1〜4・検索エンジン名を入力／EnterでDuckDuckGo") : t("enter your search query…", "検索キーワードを入力…");
     inputHint.textContent = choosingEngine
-      ? "Choose an engine. Enter = DuckDuckGo. Type cancel or press Ctrl+C to exit."
-      : `Search with ${searchSession.engine.name}. Type cancel or press Ctrl+C to exit.`;
+      ? t("Choose an engine. Enter = DuckDuckGo. Type cancel or press Ctrl+C to exit.", "検索エンジンを選択。EnterでDuckDuckGo。cancel または Ctrl+C で終了。")
+      : t(`Search with ${searchSession.engine.name}. Type cancel or press Ctrl+C to exit.`, `${searchSession.engine.name}で検索します。cancel または Ctrl+C で終了。`);
   }
   function beginSearch(query, parent) {
     searchSession = { stage: "engine", query, engine: null };
-    title(parent, "Available Search Engines");
-    line(parent, "Press Enter to use the default search engine, or choose a number or name.", "muted");
+    title(parent, t("Available Search Engines", "利用できる検索エンジン"));
+    line(parent, t("Press Enter to use the default search engine, or choose a number or name.", "Enterで既定の検索エンジンを使用します。番号または名前でも選べます。"), "muted");
     const choices = element("div", undefined, "search-engines");
     searchEngines.forEach((engine, index) => {
       const button = element("button", undefined, "search-engine");
       button.type = "button";
-      button.append(element("span", `${index + 1}. ${engine.name}${index === 0 ? " (Default)" : ""}`, "accent"), element("span", engine.note, "muted"));
+      button.append(element("span", `${index + 1}. ${engine.name}${index === 0 ? t(" (Default)", "（既定）") : ""}`, "accent"), element("span", engine.note, "muted"));
       // Ignore choices from old menus after this search has ended or advanced.
       const session = searchSession;
       button.addEventListener("click", () => {
@@ -221,13 +243,13 @@
       choices.append(button);
     });
     parent.append(choices);
-    if (query) line(parent, `Query: ${query}`, "accent");
+    if (query) line(parent, t(`Query: ${query}`, `検索キーワード：${query}`), "accent");
     showSearchPrompt();
   }
   function answerSearch(value, parent) {
     if (/^(cancel|exit)$/i.test(value)) {
       cancelSearch();
-      line(parent, "Search cancelled.", "muted");
+      line(parent, t("Search cancelled.", "検索をキャンセルしました。"), "muted");
       return;
     }
     if (searchSession.stage === "engine") {
@@ -235,19 +257,19 @@
       const engine = !choice ? searchEngines[0] : searchEngines.find((engine, index) =>
         choice === String(index + 1) || choice === engine.id || (choice === "ddg" && index === 0));
       if (!engine) {
-        line(parent, "Choose 1–4 or an engine name. Press Enter for DuckDuckGo.", "error");
+        line(parent, t("Choose 1–4 or an engine name. Press Enter for DuckDuckGo.", "1〜4または検索エンジン名を入力してください。EnterでDuckDuckGoを選びます。"), "error");
         return;
       }
       searchSession.engine = engine;
       searchSession.stage = "query";
       if (!searchSession.query) {
-        line(parent, `${engine.name} selected. What would you like to search for?`);
+        line(parent, t(`${engine.name} selected. What would you like to search for?`, `${engine.name}を選びました。何を検索しますか？`));
         showSearchPrompt();
         return;
       }
     } else {
       if (!value) {
-        line(parent, "Enter a search query, or type cancel to exit.", "error");
+        line(parent, t("Enter a search query, or type cancel to exit.", "検索キーワードを入力してください。cancel で終了します。"), "error");
         return;
       }
       searchSession.query = value;
@@ -256,7 +278,7 @@
     const url = new URL(engine.url);
     url.searchParams.set(engine.parameter, query);
     window.open(url.href, "_blank", "noopener,noreferrer");
-    line(parent, `Opening ${engine.name} results in a new tab. If nothing opens, follow the link below.`, "muted");
+    line(parent, t(`Opening ${engine.name} results in a new tab. If nothing opens, follow the link below.`, `${engine.name}の検索結果を新しいタブで開きます。開かない場合は下のリンクを選んでください。`), "muted");
     linkRows(parent, [[engine.name, query, url.href]]);
     cancelSearch();
   }
@@ -286,13 +308,13 @@
         case "fastfetch": fastfetch(result); break;
         case "about":
           title(result, "~/cachytoki/about.txt");
-          line(result, "Hey, I'm CachyToki.");
-          line(result, "Welcome to my little corner of the internet. I'm an enthusiast of Blue Archive, tech, anime and guns.");
-          line(result, "Explore my daily drivers, games I like, and gallery using the commands or the file explorer.");
-          line(result, "This Website made by GPT-6.1 Sol by OpenAI. which means I vibe coded this website.");
+          line(result, t("Hey, I'm CachyToki.", "こんにちは、CachyTokiです。"));
+          line(result, t("Welcome to my little corner of the internet. I'm an enthusiast of Blue Archive, tech, anime and guns.", "インターネットの片隅へようこそ。ブルーアーカイブ、テクノロジー、アニメ、銃が好きです。"));
+          line(result, t("Explore my daily drivers, games I like, and gallery using the commands or the file explorer.", "コマンドやエクスプローラーから、愛用デバイス、好きなゲーム、ギャラリーをご覧ください。"));
+          line(result, t("This Website made by GPT-6.1 Sol by OpenAI. which means I vibe coded this website.", "このウェブサイトはOpenAIのGPT-6.1 Solを使って作りました。いわゆるバイブコーディングです。"));
           break;
         case "devices":
-          title(result, "~/cachytoki/devices.txt — Daily Drivers");
+          title(result, t("~/cachytoki/devices.txt — Daily Drivers", "~/cachytoki/devices.txt — 愛用デバイス"));
           for (const device of devices) {
             const block = element("section", undefined, "device");
             const heading = element("h3", `${device.name} `);
@@ -300,34 +322,34 @@
             block.append(heading, facts(device.specs)); result.append(block);
           }
           break;
-        case "games": title(result, "~/cachytoki/games.txt — Games I like"); linkRows(result, games); break;
+        case "games": title(result, t("~/cachytoki/games.txt — Games I like", "~/cachytoki/games.txt — 好きなゲーム")); linkRows(result, games); break;
         case "gallery": {
           title(result, "~/cachytoki/gallery/");
           const grid = element("div", undefined, "gallery");
           for (let i = 1; i <= 4; i++) {
             const link = element("a"); link.href = `../imgs/Gallery/${i}.webp`; link.target = "_blank"; link.rel = "noopener noreferrer";
-            const image = element("img"); image.src = `../imgs/Gallery/${i}_Compressed.webp`; image.alt = `Gallery photo ${i}`; image.loading = "lazy"; image.width = 640; image.height = 360;
+            const image = element("img"); image.src = `../imgs/Gallery/${i}_Compressed.webp`; image.alt = t(`Gallery photo ${i}`, `ギャラリーの写真${i}`); image.loading = "lazy"; image.width = 640; image.height = 360;
             link.append(image, document.createTextNode(`0${i}.webp ↗`)); grid.append(link);
           }
-          result.append(grid); line(result, "Select a photo to open the full image.", "muted"); break;
+          result.append(grid); line(result, t("Select a photo to open the full image.", "写真を選ぶと元のサイズで開きます。"), "muted"); break;
         }
         case "links": title(result, "~/cachytoki/links.txt"); linkRows(result, links); break;
         case "ls":
           title(result, "~/cachytoki");
           line(result, "about.txt    devices.txt    games.txt    gallery/    links.txt");
-          line(result, "Read a file with cat about.txt, or type gallery to browse photos.", "muted"); break;
+          line(result, t("Read a file with cat about.txt, or type gallery to browse photos.", "cat about.txt でファイルを表示、gallery で写真を閲覧できます。"), "muted"); break;
         case "help": {
-          title(result, "A few ways to look around");
+          title(result, t("A few ways to look around", "使い方のヒント"));
           const list = element("dl", undefined, "command-list");
           for (const [key, description] of Object.entries(descriptions)) list.append(element("dt", key), element("dd", description));
           result.append(list);
-          line(result, "Tab completes commands. ↑ / ↓ recall your history. Ctrl+L clears the screen. Ctrl+C cancels your input.", "muted");
-          line(result, "This is an interactive profile in your browser. Search results and video commands open in a new tab.", "muted"); break;
+          line(result, t("Tab completes commands. ↑ / ↓ recall your history. Ctrl+L clears the screen. Ctrl+C cancels your input.", "Tabでコマンドを補完、↑ / ↓ で履歴を表示。Ctrl+Lで画面を消去、Ctrl+Cで入力をキャンセルします。"), "muted");
+          line(result, t("This is an interactive profile in your browser. Search results and video commands open in a new tab.", "ブラウザー上の対話型プロフィールです。検索結果や動画コマンドは新しいタブで開きます。"), "muted"); break;
         }
         case "open": {
           const match = links.find(([key]) => key === args.join(" "));
-          if (match) { linkRows(result, [match]); line(result, "Follow the link above to continue.", "muted"); }
-          else line(result, `Choose a destination: ${links.map(([key]) => key).join(", ")}.`, "muted");
+          if (match) { linkRows(result, [match]); line(result, t("Follow the link above to continue.", "上のリンクから移動できます。"), "muted"); }
+          else line(result, t(`Choose a destination: ${links.map(([key]) => key).join(", ")}.`, `移動先を選んでください：${links.map(([key]) => key).join("、")}`), "muted");
           break;
         }
         case "typeme":
@@ -336,20 +358,25 @@
             ? "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
             : "https://www.youtube.com/watch?v=MFwtpM21wWc";
           window.open(url, "_blank", "noopener,noreferrer");
-          line(result, "Opening YouTube in a new tab. If nothing opens, follow the link below.", "muted");
-          linkRows(result, [[command, "Watch on YouTube", url]]);
+          line(result, t("Opening YouTube in a new tab. If nothing opens, follow the link below.", "YouTubeを新しいタブで開きます。開かない場合は下のリンクを選んでください。"), "muted");
+          linkRows(result, [[command, t("Watch on YouTube", "YouTubeで見る"), url]]);
           break;
         }
         case "theme":
-          if (themeColors.includes(args[0])) { setTheme(args[0]); line(result, `Theme set to Catppuccin Mocha / ${args[0]}.`, "accent"); }
-          else line(result, `Usage: theme ${themeColors.join(" | ")}`, "muted");
+          if (themeColors.includes(args[0])) { setTheme(args[0]); line(result, t(`Theme set to Catppuccin Mocha / ${args[0]}.`, `テーマをCatppuccin Mocha / ${args[0]}に設定しました。`), "accent"); }
+          else line(result, t(`Usage: theme ${themeColors.join(" | ")}`, `使い方：theme ${themeColors.join(" | ")}`), "muted");
+          break;
+        case "sudo":
+        case "su":
+          if (command === "sudo") line(result, t("visitor is not in the sudoers file. This incident will be reported.", "visitor は sudoers ファイルに登録されていません。このインシデントは報告されます。"), "output-text error");
+          line(result, t("the owner said this: Well well, You can't type sudo or getting any root privileges here. just use at your own terminal if you on Linux, BSD, Mac or something Unix-like operating system. and Windows user, Please install WSL2 or Switch to Linux. Nice try.", "サイト管理者より：おやおや、ここではsudoを使ったりroot権限を取得したりすることはできません。Linux、BSD、MacなどのUnix系OSをお使いなら、ご自身のターミナルでどうぞ。Windowsユーザーの方は、WSL2をインストールするかLinuxへ乗り換えてみてください。残念でした。"));
           break;
         case "history":
-          title(result, "Session history"); history.forEach((text, index) => line(result, `${String(index + 1).padStart(3, " ")}  ${text}`)); break;
-        case "whoami": line(result, "visitor — welcome to CachyToki's website :3"); break;
+          title(result, t("Session history", "セッションの履歴")); history.forEach((text, index) => line(result, `${String(index + 1).padStart(3, " ")}  ${text}`)); break;
+        case "whoami": line(result, t("visitor — welcome to CachyToki's website :3", "visitor — CachyTokiのウェブサイトへようこそ :3")); break;
         case "pwd": line(result, "/home/visitor/cachytoki"); break;
-        case "invalid-file": line(result, `cat: ${args.join(" ") || "(missing filename)"}: no such profile file. Type ls to list files.`, "error"); break;
-        default: line(result, `${name}: command not found. Type help to see available commands.`, "error");
+        case "invalid-file": line(result, t(`cat: ${args.join(" ") || t("(missing filename)", "（ファイル名が未指定）")}: no such profile file. Type ls to list files.`, `cat: ${args.join(" ") || "（ファイル名が未指定）"}：プロフィールのファイルが見つかりません。ls で一覧を表示できます。`), "error"); break;
+        default: line(result, t(`${name}: command not found. Type help to see available commands.`, `${name}：コマンドが見つかりません。help で利用できるコマンドを確認してください。`), "error");
       }
       output.append(entry);
       // Bound the DOM for long sessions while retaining the latest results.
@@ -360,7 +387,7 @@
       else button.removeAttribute("aria-current");
     });
     if (!initial) {
-      announcement.textContent = command === "clear" ? "Terminal cleared." : `${value}: ${result.textContent}`;
+      announcement.textContent = command === "clear" ? t("Terminal cleared.", "ターミナルを消去しました。") : `${value}: ${result.textContent}`;
       // Keep the beginning of long output visible, rather than jumping to its end.
       if (entry.isConnected) scrollback.scrollTop = entry.offsetTop - scrollback.offsetTop - 12;
       else scrollback.scrollTop = 0;
@@ -404,14 +431,14 @@
             while (!candidate.startsWith(prefix)) prefix = prefix.slice(0, -1);
             return prefix;
           });
-          announcement.textContent = `Completions: ${matches.join(", ")}`;
+          announcement.textContent = t(`Completions: ${matches.join(", ")}`, `補完候補：${matches.join("、")}`);
           document.querySelector("#input-hint").textContent = matches.join(" · ");
         }
       }
     } else if (event.ctrlKey && event.key.toLowerCase() === "l") {
       event.preventDefault(); cancelSearch(); run("clear");
     } else if (event.ctrlKey && event.key.toLowerCase() === "c" && input.selectionStart === input.selectionEnd) {
-      event.preventDefault(); cancelSearch(); input.value = ""; historyIndex = history.length; draft = ""; announcement.textContent = "Input cancelled.";
+      event.preventDefault(); cancelSearch(); input.value = ""; historyIndex = history.length; draft = ""; announcement.textContent = t("Input cancelled.", "入力をキャンセルしました。");
     }
   });
   let savedTheme;
