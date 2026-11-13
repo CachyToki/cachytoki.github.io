@@ -43,7 +43,7 @@
     { name: "Nothing Phone (3)", role: t("Main phone", "メインのスマートフォン"), specs: { SoC: "Snapdragon 8s Gen 4", RAM: "LPDDR5X 16GB", Storage: "UFS 4.0 512GB", OS: "Nothing OS 5.0 (Android 17)", Browser: "Ironfox" } },
     { name: "Google Pixel 6a", role: t("Sub phone", "サブのスマートフォン"), specs: { SoC: "Google Tensor", RAM: "LPDDR5 6GB", Storage: "UFS 3.1 128GB", OS: "LineageOS 23.2 (Android 16)", Browser: "Ironfox" } },
     { name: "Lenovo ThinkPad T14 Gen 5 (AMD)", role: t("Daily use", "普段使い"), specs: { CPU: "AMD Ryzen 7 PRO 8840U", RAM: "Kingston DDR5-5600 32GB", GPU: "AMD Radeon 780M (iGPU)", Storage: "Micron PCIe 4.0 NVMe 512GB", OS: "CachyOS (Arch-based)", Desktop: "KDE Plasma", IDE: "Zed/Neovim(Vim)", Browser: "Zen" } },
-    { name: "ASUS TUF Gaming A15 (FA507)", role: t("Gaming", "ゲーミング"), specs: { Chassis: "Antec P30 Air", MotherBoard: "ASRock B850 Challenger WiFi", CPU: "AMD Ryzen 9700X", RAM: "Patriot Viper Venom DDR5-6000 CL30 32GB(16x2)", GPU: "ASRock Challenger Radeon RX 9060 XT 16GB OC", Storage: "Biwin NV7400 PCIe 4.0 NVMe 1TB & Patriot P300 PCIe 3.0 NVME 512GB", OS: "Windows 11 (ReviOS)", Browser: "Zen" } },
+    { name: "Custom Build PC", role: t("Gaming", "ゲーミング"), specs: { Chassis: "Antec P30 Air", MotherBoard: "ASRock B850 Challenger WiFi", CPU: "AMD Ryzen 9700X", RAM: "Patriot Viper Venom DDR5-6000 CL30 32GB(16x2)", GPU: "ASRock Challenger Radeon RX 9060 XT 16GB OC", Storage: "Biwin NV7400 PCIe 4.0 NVMe 1TB & Patriot P300 PCIe 3.0 NVME 512GB", OS: "Windows 11 (ReviOS)", Browser: "Zen" } },
   ];
   const games = [
     ["01", t("Blue Archive", "ブルーアーカイブ"), "https://www.nexon.com/main/en/Blue%20Archive/"],
